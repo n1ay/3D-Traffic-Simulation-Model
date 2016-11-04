@@ -1,15 +1,17 @@
 #ifndef CAR_HPP_
 #define CAR_HPP_
 
-#include "Road.hpp"
+//forward declaration of Road
+class Road;
 
 class Car {
 private:
-	int velocity;
-	int position;
 	Road* road;
+	int position;
+	int velocity;
 
 public:
+	Car();
 	Car(Road* road);
 	~Car();
 	void update();

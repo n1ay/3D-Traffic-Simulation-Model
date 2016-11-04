@@ -1,12 +1,13 @@
 #ifndef ROAD_HPP_
 #define ROAD_HPP_
 
-#include "Car.hpp"
-
 enum Direction {
 	LEFT = 0,
 	RIGHT = 1
 };
+
+//forward declaration of Car
+class Car;
 
 class Road {
 private:
@@ -16,7 +17,7 @@ private:
 
 public:
 
-	Road();
+	Road(int direction);
 	~Road();
 	void update();
 };

@@ -1,1 +1,5 @@
 [Dd]ebug/
+.cproject
+.project
+.settings/
+

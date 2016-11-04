@@ -1,28 +1,23 @@
+#include "Car.hpp"
 #include "Road.hpp"
-#include "World.cpp"
+#include "World.hpp"
 
-class Road {
-private:
-	Car* road;
-	Direction direction;
 
-public:
+Road::Road(int direction):
+	direction(direction), length(World::length)
+{
+	road = new Car [World::length];
+}
 
-	Road(int direction) {
-		this->direction = direction;
-		road = new Car [World::length];
+Road::~Road() {
+	delete [] road;
+}
+
+void Road::update() {
+	for(int i=0; i<World::length; ++i) {
+		road[i].update();
 	}
-
-	~Road() {
-		delete [] road;
-	}
-
-	void update() {
-		for(int i=0; i<World::length; ++i) {
-			road[i].update();
-		}
-	}
-};
+}
 
 
 

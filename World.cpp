@@ -1,18 +1,12 @@
+#include "World.hpp"
 
-#ifndef WORLD_CPP_
-#define WORLD_CPP_
+void World::initWorldVariables(int probability, int length, int maxVelocity) {
+	World::length = length;
+	World::probability = probability;
+	World::maxVelocity = maxVelocity;
+}
 
-class World {
-public:
-	static int length;
-	static int probability;
-	static int maxVelocity;
+int World::length;
+int World::probability;
+int World::maxVelocity;
 
-	static void initWorldVariables(int probability, int length, int maxVelocity) {
-		World::length = length;
-		World::probability = probability;
-		World::maxVelocity = maxVelocity;
-	}
-};
-
-#endif
