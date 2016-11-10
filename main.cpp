@@ -7,11 +7,11 @@
 
 #include <iostream>
 #include <cstdlib>
-#include "Road.hpp"
 #include "World.hpp"
 #include "Car.hpp"
 #include <ctime>
 #include <unistd.h>
+#include "Lane.hpp"
 
 /*
  * TODO: Można zespawnować samochód jeden na drugim, wtedy poprzedni znika
@@ -23,14 +23,18 @@
 
 int main(int argc, char* argv[]) {
 	srand(time(NULL));
-	World::initWorldVariables(50, 20, 5);
+	World::initWorldVariables(0, 20, 5);
 
-	Road road(Direction::RIGHT);
+	Lane lane(Direction::RIGHT, World::length);
+
+	lane.spawnCar();
+	lane.lockUpdate();
+	lane.log();
 
 	for(int i=0; i<10; i++) {
-		road.spawnCar();
-		std::cout<<road<<std::endl;
-		road.update();
+		lane.update();
+		lane.lockUpdate();
+		lane.log();
 		sleep(1);
 	}
 

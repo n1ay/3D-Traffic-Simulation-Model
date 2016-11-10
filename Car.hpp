@@ -3,23 +3,24 @@
 
 #include <iostream>
 
-//forward declaration of Road
-class Road;
+//forward declaration of Lane
+class Lane;
 
 class Car {
 
 private:
-	Road* road;
+	Lane* lane;
 	int position;
 	int velocity;
 
 public:
 	Car();
-	Car(Road* road);
+	Car(Lane* road);
 	~Car();
 	friend std::ostream & operator<<(std::ostream &, const Car &);
 	void update();
 	int checkFrontDistance();
+	Car* copy(Lane*);
 };
 
 #endif /* CAR_HPP_ */
