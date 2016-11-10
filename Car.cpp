@@ -59,8 +59,6 @@ int Car::checkFrontDistance() {
 }
 
 std::ostream & operator<< (std::ostream & ostr, const Car & car) {
-	ostr<<"[x";
-	ostr<<car.velocity;
-	ostr<<"]";
+	ostr<<"[x"<<car.velocity<<"]";
 	return ostr;
 }

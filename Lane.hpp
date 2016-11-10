@@ -2,6 +2,7 @@
 #define LANE_HPP_
 
 #include <iostream>
+#include <vector>
 
 enum Direction {
 	LEFT = 0,
@@ -13,25 +14,28 @@ class Car;
 
 class Lane {
 
+	friend class Car;
+	friend std::ostream & operator<<(std::ostream &, const Lane &);
+
 private:
-	Car** lane;
-	Car** updateLane;
 	int direction;
 	int length;
+	std::vector<Car*> lanes[2];
 
 public:
 
 	Lane(int direction, int length);
 	~Lane();
-	friend class Car;
-	friend std::ostream & operator<<(std::ostream &, const Lane &);
-	void update();
+
 	void spawnCar();
 	void moveCar(int, int);
 	Car* getCar(int);
 	void removeCar(int);
+
+	void update();
 	void cleanUpdate();
 	void lockUpdate();
+
 	int getLength();
 	void log();
 };

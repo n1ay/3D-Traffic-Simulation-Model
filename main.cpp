@@ -5,13 +5,16 @@
  *  Created on: 03.11.2016
  */
 
-#include <iostream>
-#include <cstdlib>
 #include "World.hpp"
 #include "Car.hpp"
-#include <ctime>
-#include <unistd.h>
 #include "Lane.hpp"
+
+#include <iostream>
+
+#include <cstdlib>
+#include <ctime>
+
+#include <unistd.h>
 
 /*
  * TODO: Można zespawnować samochód jeden na drugim, wtedy poprzedni znika
@@ -28,13 +31,10 @@ int main(int argc, char* argv[]) {
 	Lane lane(Direction::RIGHT, World::length);
 
 	lane.spawnCar();
-	lane.lockUpdate();
-	lane.log();
 
 	for(int i=0; i<10; i++) {
-		lane.update();
-		lane.lockUpdate();
 		lane.log();
+		lane.update();
 		sleep(1);
 	}
 
