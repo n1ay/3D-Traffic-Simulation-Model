@@ -8,6 +8,7 @@
 #include "World.hpp"
 #include "Car.hpp"
 #include "Lane.hpp"
+#include "Road.hpp"
 
 #include <iostream>
 
@@ -18,7 +19,7 @@
 
 /*
  * TODO: Można zespawnować samochód jeden na drugim, wtedy poprzedni znika
- *
+ * TODO: Dorobić zmianę pasa ruchu
  *
  *
  *
@@ -26,15 +27,18 @@
 
 int main(int argc, char* argv[]) {
 	srand(time(NULL));
-	World::initWorldVariables(0, 20, 5);
+	World::initWorldVariables(30, 20, 5);
 
-	Lane lane(Direction::RIGHT, World::length);
+	int n=3;
 
-	lane.spawnCar();
+	Road road(20, n, n);
 
-	for(int i=0; i<10; i++) {
-		lane.log();
-		lane.update();
+	for(int i=0; i<50; i++) {
+		(road.getLanes(LEFT))[i%n]->spawnCar();
+		(road.getLanes(RIGHT))[i%n]->spawnCar();
+		std::cout<<road<<std::endl;
+		road.update();
+		road.lockUpdate();
 		sleep(1);
 	}
 

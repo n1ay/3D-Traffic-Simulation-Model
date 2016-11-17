@@ -17,10 +17,10 @@ public:
 	Car();
 	Car(Lane* road);
 	~Car();
-	friend std::ostream & operator<<(std::ostream &, const Car &);
+	friend std::ostream & operator<<(std::ostream & stream, const Car & car);
 	void update();
 	int checkFrontDistance();
-	Car* copy(Lane*);
+	Car* copy(Lane* lane);
 };
 
 #endif /* CAR_HPP_ */

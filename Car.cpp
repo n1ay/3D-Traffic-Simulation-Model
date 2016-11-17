@@ -29,7 +29,7 @@ void Car::update() {
 		return;
 	}
 	velocity = checkFrontDistance();
-	std::cout<<"v="<<velocity<<" p="<<position<<std::endl;
+	//std::cout<<"v="<<velocity<<" p="<<position<<std::endl;
 	lane->moveCar(position, position+velocity);
 	position += velocity;
 
@@ -37,7 +37,7 @@ void Car::update() {
 		--velocity;
 	else if(velocity<World::maxVelocity)
 		++velocity;
-	std::cout<<"After: v="<<velocity<<" p="<<position<<std::endl;
+	//std::cout<<"After: v="<<velocity<<" p="<<position<<std::endl;
 }
 
 int Car::checkFrontDistance() {

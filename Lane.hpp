@@ -28,9 +28,9 @@ public:
 	~Lane();
 
 	void spawnCar();
-	void moveCar(int, int);
-	Car* getCar(int);
-	void removeCar(int);
+	void moveCar(int from, int to);
+	Car* getCar(int from);
+	void removeCar(int position);
 
 	void update();
 	void cleanUpdate();
