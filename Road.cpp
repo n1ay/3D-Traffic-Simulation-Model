@@ -6,12 +6,13 @@
  */
 
 #include "Road.hpp"
+#include "Lane.hpp"
 
 Road::Road(int length, int left, int right): length(length), left(left), right(right) {
 	for(int i=0; i<left; i++)
-		lanesLeft.push_back(new Lane(LEFT, length));
+		lanesLeft.push_back(new Lane(this, LEFT, length));
 	for(int i=0; i<right; i++)
-		lanesRight.push_back(new Lane(RIGHT, length));
+		lanesRight.push_back(new Lane(this, RIGHT, length));
 }
 
 Road::~Road() {
@@ -61,9 +62,9 @@ std::vector<Lane*> Road::getLanes(int direction) {
 }
 
 std::ostream & operator<<(std::ostream & stream, const Road & road) {
-	stream<<"direction: <-\n";
+	/*stream<<"direction: <-\n";
 	for(int i=0; i<road.left; i++)
-		stream<<*(road.lanesLeft[i])<<"\n";
+		stream<<*(road.lanesLeft[i])<<"\n";*/
 
 	stream<<"direction: ->\n";
 	for(int i=0; i<road.right; i++)
@@ -74,6 +75,7 @@ std::ostream & operator<<(std::ostream & stream, const Road & road) {
 }
 
 void Road::update() {
+	changeLanes();
 	for(int i=0; i<left; i++)
 		lanesLeft[i] -> update();
 
@@ -87,5 +89,16 @@ void Road::lockUpdate() {
 
 	for(int i=0; i<right; i++)
 		lanesRight[i] -> lockUpdate();
+}
+
+void Road::changeLanes() {
+	for(auto &iter: lanesLeft) {
+		if(iter != nullptr)
+			iter->updateCarChangeLane();
+	}
+	for(auto &iter: lanesRight) {
+		if(iter != nullptr)
+			iter->updateCarChangeLane();
+	}
 }
 

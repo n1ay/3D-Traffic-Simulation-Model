@@ -13,8 +13,12 @@ public:
 	static int length;
 	static int probability;
 	static int maxVelocity;
+	static int maxLength;
 
-	static void initWorldVariables(int probability, int length, int maxVelocity);
+	static int laneChangeProbabilityLow;
+	static int laneChangeProbabilityHigh;
+
+	static void initWorldVariables(int probability, int length, int maxVelocity, int maxLength, int laneChangeProbabilityLow, int LaneChangeProbabilityHigh);
 };
 
 

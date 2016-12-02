@@ -1,10 +1,12 @@
 #include "Lane.hpp"
 #include "Car.hpp"
 #include "World.hpp"
+#include "Road.hpp"
+#include <algorithm>
 
 
-Lane::Lane(int direction, int length):
-	direction(direction), length(length), lanes({std::vector<Car*>(length), std::vector<Car*>(length)})
+Lane::Lane(Road* road, int direction, int length):
+	road(road), direction(direction), length(length), lanes({std::vector<Car*>(length), std::vector<Car*>(length)})
 {}
 
 Lane::~Lane() {
@@ -32,8 +34,16 @@ void Lane::lockUpdate() {
 	std::swap(lanes[0], lanes[1]);
 }
 
-void Lane::spawnCar() {
-	lanes[0][0] = new Car(this);
+void Lane::spawnCar(int length) {
+	for(int i=0; i<World::maxLength; i++) {
+		if(lanes[0][i] != nullptr) {
+			if(i-lanes[0][i]->getLength()>=0) {
+				lanes[0][0] = new Car(this, length);
+				return;
+			}
+		}
+	}
+	lanes[0][0] = new Car(this, length);
 }
 
 std::ostream & operator<<(std::ostream & ostr, const Lane & lane) {
@@ -122,4 +132,34 @@ void Lane::cleanUpdate() {
 
 int Lane::getLength() {
 	return length;
+}
+
+//return next lane from road vector
+//if next==false then returns previous lane
+
+Lane* Lane::seekLane(bool next=true) {
+	int size = road->getLanes(direction).size();
+	if(next) {
+		for(int i=0; i<size; i++) {
+			return (i<size-1)?(road->getLanes(direction))[i+1]:nullptr;
+		}
+	} else {
+		for(int i=size-1; i>=0; i--) {
+			return (i>0)?(road->getLanes(direction)[i-1]):nullptr;
+		}
+	}
+	return nullptr;
+}
+
+
+std::vector<Car*> Lane::getLane() {
+	return lanes[0];
+}
+
+void Lane::updateCarChangeLane() {
+
+	for(auto& iter: lanes[0])
+		if(iter!=nullptr)
+			iter->changeLane(iter->doChangeLane());
+
 }

@@ -11,6 +11,7 @@ enum Direction {
 
 //forward declaration of Car
 class Car;
+class Road;
 
 class Lane {
 
@@ -18,16 +19,17 @@ class Lane {
 	friend std::ostream & operator<<(std::ostream &, const Lane &);
 
 private:
+	Road* road;
 	int direction;
 	int length;
 	std::vector<Car*> lanes[2];
 
 public:
 
-	Lane(int direction, int length);
+	Lane(Road* road, int direction, int length);
 	~Lane();
 
-	void spawnCar();
+	void spawnCar(int length);
 	void moveCar(int from, int to);
 	Car* getCar(int from);
 	void removeCar(int position);
@@ -38,6 +40,9 @@ public:
 
 	int getLength();
 	void log();
+	std::vector<Car*> getLane();
+	Lane* seekLane(bool next);
+	void updateCarChangeLane();
 };
 
 #endif /* LANE_HPP_ */

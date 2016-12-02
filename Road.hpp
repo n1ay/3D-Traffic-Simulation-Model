@@ -11,7 +11,8 @@
 #include <vector>
 #include <map>
 #include <set>
-#include "Lane.hpp"
+
+class Lane;
 
 class Road {
 friend std::ostream & operator<<(std::ostream & stream, const Road & road);
@@ -30,6 +31,7 @@ public:
 	std::vector<Lane *> getLanes(int direction);
 	void update();
 	void lockUpdate();
+	void changeLanes();
 
 };
 
