@@ -35,15 +35,16 @@ void Lane::lockUpdate() {
 }
 
 void Lane::spawnCar(int length) {
+	bool free = true;
 	for(int i=0; i<World::maxLength; i++) {
 		if(lanes[0][i] != nullptr) {
-			if(i-lanes[0][i]->getLength()>=0) {
-				lanes[0][0] = new Car(this, length);
-				return;
+			if(i-lanes[0][i]->getLength() < 0) {
+				free = false;
 			}
 		}
 	}
-	lanes[0][0] = new Car(this, length);
+	if(free)
+		lanes[0][0] = new Car(this, length);
 }
 
 std::ostream & operator<<(std::ostream & ostr, const Lane & lane) {
@@ -141,11 +142,14 @@ Lane* Lane::seekLane(bool next=true) {
 	int size = road->getLanes(direction).size();
 	if(next) {
 		for(int i=0; i<size; i++) {
-			return (i<size-1)?(road->getLanes(direction))[i+1]:nullptr;
+			if(this == road->getLanes(direction)[i]) {
+				return (i<size-1)?(road->getLanes(direction))[i+1]:nullptr;
+			}
 		}
 	} else {
 		for(int i=size-1; i>=0; i--) {
-			return (i>0)?(road->getLanes(direction)[i-1]):nullptr;
+			if(this == road->getLanes(direction)[i])
+				return (i>0)?(road->getLanes(direction)[i-1]):nullptr;
 		}
 	}
 	return nullptr;
@@ -162,4 +166,8 @@ void Lane::updateCarChangeLane() {
 		if(iter!=nullptr)
 			iter->changeLane(iter->doChangeLane());
 
+}
+
+void Lane::putCar(Car* car, int position) {
+	lanes[0][position] = car;
 }

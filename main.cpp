@@ -18,10 +18,11 @@
 #include <unistd.h>
 
 /*
- * Niby poprawione, ale nadal nie działa -> TODO: Można zespawnować samochód jeden na drugim, wtedy poprzedni znika
+ * Już chyba działa :) -> Niby poprawione, ale nadal nie działa -> TODO: Można zespawnować samochód jeden na drugim, wtedy poprzedni znika
  * TODO: Dorobić zmianę pasa ruchu
- * Road destructor
- * Dodać, żeby przy zmianie pasa przestrzegał zasad forbidLaneChange w klasie Road
+ * TODO: Road destructor
+ * TODO: Dodać, żeby przy zmianie pasa przestrzegał zasad forbidLaneChange w klasie Road
+ * TODO: Update zawsze zwiększa prędkość samochodów(ale nie ponad max), nawet jak w odległości od siebie 1 komórki mają przeszkodę
  *
  *
  *
@@ -29,15 +30,15 @@
 
 int main(int argc, char* argv[]) {
 	srand(time(NULL));
-	World::initWorldVariables(15, 20, 5, 5, 20, 90);
+	//World::initWorldVariables(15, 20, 5, 5, 20, 90);
+	World::initWorldVariables(0, 20, 5, 5, 20, 90);
 
-	int n=3;
 
-	Road road(20, n, n);
+	Road road(20, 3, 1);
 
 	for(int i=0; i<50; i++) {
-		(road.getLanes(LEFT))[i%n]->spawnCar(3);
-		(road.getLanes(RIGHT))[i%n]->spawnCar(3);
+		(road.getLanes(LEFT))[1/*rand()%road.getLanesQuantity(LEFT)*/]->spawnCar(1);
+		(road.getLanes(RIGHT))[rand()%road.getLanesQuantity(RIGHT)]->spawnCar(3);
 		std::cout<<road<<std::endl;
 		road.update();
 		road.lockUpdate();

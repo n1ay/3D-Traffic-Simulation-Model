@@ -32,6 +32,8 @@ public:
 	void update();
 	void lockUpdate();
 	void changeLanes();
+	int getLength();
+	int getLanesQuantity(int direction);
 
 };
 

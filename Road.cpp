@@ -62,9 +62,9 @@ std::vector<Lane*> Road::getLanes(int direction) {
 }
 
 std::ostream & operator<<(std::ostream & stream, const Road & road) {
-	/*stream<<"direction: <-\n";
+	stream<<"direction: <-\n";
 	for(int i=0; i<road.left; i++)
-		stream<<*(road.lanesLeft[i])<<"\n";*/
+		stream<<*(road.lanesLeft[i])<<"\n";
 
 	stream<<"direction: ->\n";
 	for(int i=0; i<road.right; i++)
@@ -75,7 +75,7 @@ std::ostream & operator<<(std::ostream & stream, const Road & road) {
 }
 
 void Road::update() {
-	changeLanes();
+	//changeLanes();
 	for(int i=0; i<left; i++)
 		lanesLeft[i] -> update();
 
@@ -100,5 +100,13 @@ void Road::changeLanes() {
 		if(iter != nullptr)
 			iter->updateCarChangeLane();
 	}
+}
+
+int Road::getLength() {
+	return length;
+}
+
+int Road::getLanesQuantity(int direction) {
+	return (direction==LEFT)?lanesLeft.size():lanesRight.size();
 }
 

@@ -43,6 +43,7 @@ public:
 	std::vector<Car*> getLane();
 	Lane* seekLane(bool next);
 	void updateCarChangeLane();
+	void putCar(Car* car, int position);
 };
 
 #endif /* LANE_HPP_ */

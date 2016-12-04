@@ -54,7 +54,7 @@ int Car::checkFrontDistance() {
 		if(i+position>=lane->length)
 			return std::min(i, velocity);
 		if(lane->getCar(i+position) != nullptr) {
-			return i-lane->getCar(i+position)->length;
+			return std::min(i - lane->getCar(i+position)->length, velocity);
 		}
 	}
 	return velocity;
@@ -71,7 +71,8 @@ std::ostream & operator<< (std::ostream & ostr, const Car & car) {
 
 void Car::putInLane(Lane* lane) {
 	this->lane->getLane()[position]=nullptr;
-	lane->getLane()[position]=this;
+	this->lane = lane;
+	lane->putCar(this, position);
 }
 
 Lane* Car::doChangeLane() {
