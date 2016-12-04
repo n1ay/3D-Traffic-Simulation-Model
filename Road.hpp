@@ -27,13 +27,13 @@ public:
 	Road(int length, int left, int right);
 	~Road();
 	void forbidLaneChange(Lane* lane1, Lane* lane2);
-	bool isForbidden(Lane* lane1, Lane* lane2);
 	std::vector<Lane *> getLanes(int direction);
 	void update();
 	void lockUpdate();
 	void changeLanes();
 	int getLength();
 	int getLanesQuantity(int direction);
+	void cleanUpdate();
 
 };
 

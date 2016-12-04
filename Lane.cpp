@@ -24,7 +24,6 @@ Lane::~Lane() {
 }
 
 void Lane::update() {
-	cleanUpdate();
 	for(auto &car : lanes[0])
 		if(car)
 			car->update();
@@ -155,19 +154,22 @@ Lane* Lane::seekLane(bool next=true) {
 	return nullptr;
 }
 
-
-std::vector<Car*> Lane::getLane() {
-	return lanes[0];
-}
-
-void Lane::updateCarChangeLane() {
+void Lane::updateCarChangeLane(bool next) {
 
 	for(auto& iter: lanes[0])
 		if(iter!=nullptr)
-			iter->changeLane(iter->doChangeLane());
+			iter->changeLane(iter->doChangeLane(next));
 
 }
 
 void Lane::putCar(Car* car, int position) {
 	lanes[0][position] = car;
+}
+
+bool Lane::isUsed(int position) {
+	for(int i=position; i<position+World::maxLength && i<length; i++) {
+		if(lanes[0][i])
+			return true;
+	}
+	return false;
 }

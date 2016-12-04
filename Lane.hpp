@@ -40,10 +40,10 @@ public:
 
 	int getLength();
 	void log();
-	std::vector<Car*> getLane();
 	Lane* seekLane(bool next);
-	void updateCarChangeLane();
+	void updateCarChangeLane(bool next);
 	void putCar(Car* car, int position);
+	bool isUsed(int position);
 };
 
 #endif /* LANE_HPP_ */

@@ -13,6 +13,8 @@ private:
 	int length;
 	int position;
 	int velocity;
+	bool changedLane = false;
+	Lane* destination = nullptr;
 
 public:
 	Car();
@@ -25,7 +27,9 @@ public:
 	Car* copy(Lane* lane);
 	void changeLane(Lane * lane);
 	void putInLane(Lane* lane);
-	Lane* doChangeLane();
+	Lane* doChangeLane(bool next);
+	void setDestination(Lane* destination);
+	Lane* getDestination();
 };
 
 #endif /* CAR_HPP_ */

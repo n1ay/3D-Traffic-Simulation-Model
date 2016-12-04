@@ -2,6 +2,7 @@
 #include "World.hpp"
 #include <cstdlib>
 #include "Lane.hpp"
+#include "Road.hpp"
 
 Car::Car(Lane* lane, int length):
 	lane(lane), length(length), position(0), velocity(rand()%(World::maxVelocity+1))
@@ -23,21 +24,20 @@ Car* Car::copy(Lane* laneptr) {
 }
 
 void Car::update() {
-
 	if(checkFrontDistance()==-1) {
 		lane->removeCar(position);
 		return;
 	}
+	int preUpdateVelocity = velocity;
 	velocity = checkFrontDistance();
-	//std::cout<<"v="<<velocity<<" p="<<position<<std::endl;
 	lane->moveCar(position, position+velocity);
 	position += velocity;
 
 	if(rand()%100 < World::probability && velocity > 0)
 		--velocity;
-	else if(velocity<World::maxVelocity)
+	else if(velocity<World::maxVelocity && preUpdateVelocity == velocity)
 		++velocity;
-	//std::cout<<"After: v="<<velocity<<" p="<<position<<std::endl;
+	changedLane = false;
 }
 
 int Car::checkFrontDistance() {
@@ -70,19 +70,20 @@ std::ostream & operator<< (std::ostream & ostr, const Car & car) {
 }
 
 void Car::putInLane(Lane* lane) {
-	this->lane->getLane()[position]=nullptr;
+	this->lane->putCar(nullptr, position);
 	this->lane = lane;
 	lane->putCar(this, position);
+	changedLane = true;
 }
 
-Lane* Car::doChangeLane() {
+Lane* Car::doChangeLane(bool next) {
 	if(velocity > checkFrontDistance() && checkFrontDistance() != -1)
-		return lane->seekLane(true);
+		return lane->seekLane(next);
 	else return nullptr;
 }
 
 void Car::changeLane(Lane* lane) {
-	if(lane == nullptr || lane->getLane()[position]!=nullptr) return;
+	if(changedLane || lane == nullptr || lane->getCar(position)!=nullptr) return;
 	int r = rand()%100;
 	bool block = false;
 	for(int i =0; position-i>=0; i++) {
@@ -97,4 +98,12 @@ void Car::changeLane(Lane* lane) {
 		putInLane(lane);
 	else if(!block && r<World::laneChangeProbabilityHigh)
 		putInLane(lane);
+}
+
+void Car::setDestination(Lane* destination) {
+	this->destination = destination;
+}
+
+Lane* Car::getDestination() {
+	return destination;
 }

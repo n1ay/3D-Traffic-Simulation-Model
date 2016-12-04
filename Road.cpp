@@ -32,28 +32,6 @@ void Road::forbidLaneChange(Lane* lane1, Lane* lane2) {
 	}
 }
 
-bool Road::isForbidden(Lane* lane1, Lane* lane2) {
-	auto pair = forbiddenLaneChanges.find(lane1);
-	if(pair == forbiddenLaneChanges.map::end()) {
-		pair = forbiddenLaneChanges.find(lane2);
-		if(pair == forbiddenLaneChanges.map::end()) {
-			return false;
-		}
-		else {
-			if(pair->second->count(lane1))
-				return true;
-			else
-				return false;
-		}
-	}
-	else {
-		if(pair->second->count(lane2))
-			return true;
-		else
-			return false;
-	}
-}
-
 std::vector<Lane*> Road::getLanes(int direction) {
 	if(direction == LEFT)
 		return lanesLeft;
@@ -75,7 +53,7 @@ std::ostream & operator<<(std::ostream & stream, const Road & road) {
 }
 
 void Road::update() {
-	//changeLanes();
+	changeLanes();
 	for(int i=0; i<left; i++)
 		lanesLeft[i] -> update();
 
@@ -92,13 +70,24 @@ void Road::lockUpdate() {
 }
 
 void Road::changeLanes() {
+	//from right to left
 	for(auto &iter: lanesLeft) {
 		if(iter != nullptr)
-			iter->updateCarChangeLane();
+			iter->updateCarChangeLane(false);
 	}
 	for(auto &iter: lanesRight) {
 		if(iter != nullptr)
-			iter->updateCarChangeLane();
+			iter->updateCarChangeLane(false);
+	}
+
+	//from left to right
+	for(auto &iter: lanesLeft) {
+		if(iter != nullptr)
+			iter->updateCarChangeLane(true);
+	}
+	for(auto &iter: lanesRight) {
+		if(iter != nullptr)
+			iter->updateCarChangeLane(true);
 	}
 }
 
@@ -108,5 +97,16 @@ int Road::getLength() {
 
 int Road::getLanesQuantity(int direction) {
 	return (direction==LEFT)?lanesLeft.size():lanesRight.size();
+}
+
+void Road::cleanUpdate() {
+	for(auto &iter: lanesLeft) {
+		if(iter != nullptr)
+			iter->cleanUpdate();
+	}
+	for(auto &iter: lanesRight) {
+		if(iter != nullptr)
+			iter->cleanUpdate();
+	}
 }
 
