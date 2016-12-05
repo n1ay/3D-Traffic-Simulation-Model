@@ -26,6 +26,8 @@ public:
 	void addRule(Lane* from, std::vector<std::pair<Lane*, int> > rule);
 	void transfer(Lane* from);
 	void setDestination(Lane* from);
+	void transferAll();
+	friend std::ostream & operator<< (std::ostream & ostr, Crossroad & crossroad);
 };
 
 #endif /* CROSSROAD_HPP_ */

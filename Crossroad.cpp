@@ -35,7 +35,7 @@ void Crossroad::setDestination(Lane* from) {
 	auto vec = rules.find(from);
 	if(vec == rules.end()) return;
 	int r = rand()%100;
-	for(auto iter: vec->second) {
+	for(auto& iter: vec->second) {
 		cumulativeProbability += iter.second;
 		if(r<cumulativeProbability)
 			car->setDestination(iter.first);
@@ -47,4 +47,19 @@ void Crossroad::transfer(Lane* from) {
 	if(!car) return;
 	car->getDestination()->putCar(car, 0);
 	from->putCar(nullptr, from->getLength()-1);
+}
+
+void Crossroad::transferAll() {
+	for(auto& iter: rules) {
+		transfer(iter.first);
+	}
+}
+
+std::ostream & operator<< (std::ostream & ostr, Crossroad & crossroad) {
+	for(auto& iter: crossroad.roads) {
+		ostr<<iter;
+		ostr<<"==============================\n";
+		ostr<<"==============================\n";
+	}
+	return ostr;
 }

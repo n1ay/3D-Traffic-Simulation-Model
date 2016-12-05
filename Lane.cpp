@@ -173,3 +173,11 @@ bool Lane::isUsed(int position) {
 	}
 	return false;
 }
+
+bool Lane::getCrossInfo() {
+	return toCrossroad;
+}
+
+void Lane::setCrossInfo(bool set) {
+	toCrossroad = set;
+}

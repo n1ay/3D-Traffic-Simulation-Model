@@ -4,9 +4,13 @@
 #include "Lane.hpp"
 #include "Road.hpp"
 
+int Car::count = 0;
+
 Car::Car(Lane* lane, int length):
 	lane(lane), length(length), position(0), velocity(rand()%(World::maxVelocity+1))
-{}
+{
+	Car::count++;
+}
 
 Car::Car():
 	lane(nullptr), length(0), position(-1), velocity(-1)
@@ -35,19 +39,32 @@ void Car::update() {
 
 	if(rand()%100 < World::probability && velocity > 0)
 		--velocity;
-	else if(velocity<World::maxVelocity && preUpdateVelocity == velocity)
+	else if(velocity<World::maxVelocity && preUpdateVelocity == velocity && getFrontDistance())
 		++velocity;
 	changedLane = false;
 }
 
 int Car::checkFrontDistance() {
-	if(velocity+position>=lane->length) {
-		for(int i=1; i+position<lane->length; ++i) {
-			if(lane->getCar(i+position) != nullptr) {
-				return i - lane->getCar(i+position)->length;
+	if(lane->getCrossInfo()) {
+		//crosses a road
+		if(velocity+position+1>=lane->length) {
+			for(int i=1; i+position<lane->length; ++i) {
+				if(lane->getCar(i+position) != nullptr) {
+					return i - lane->getCar(i+position)->length;
+				}
 			}
+			return lane->getLength()-position-1;
 		}
-		return -1;
+
+	} else {
+		if(velocity+position>=lane->length) {
+			for(int i=1; i+position<lane->length; ++i) {
+				if(lane->getCar(i+position) != nullptr) {
+					return i - lane->getCar(i+position)->length;
+				}
+			}
+			return -1;
+		}
 	}
 
 	for(int i=1; i<=velocity+World::maxLength - 1; ++i) {
@@ -59,6 +76,40 @@ int Car::checkFrontDistance() {
 	}
 	return velocity;
 }
+
+int Car::getFrontDistance() {
+	if(lane->getCrossInfo()) {
+		//crosses a road
+		if(velocity+position+1>=lane->length) {
+			for(int i=1; i+position<lane->length; ++i) {
+				if(lane->getCar(i+position) != nullptr) {
+					return i - lane->getCar(i+position)->length;
+				}
+			}
+			return lane->getLength()-position-1;
+		}
+
+	} else {
+		if(velocity+position>=lane->length) {
+			for(int i=1; i+position<lane->length; ++i) {
+				if(lane->getCar(i+position) != nullptr) {
+					return i - lane->getCar(i+position)->length;
+				}
+			}
+			return -1;
+		}
+	}
+
+	for(int i=1; i<=velocity+World::maxLength - 1; ++i) {
+		if(i+position>=lane->length)
+			return i;
+		if(lane->getCar(i+position) != nullptr) {
+			return i - lane->getCar(i+position)->length;
+		}
+	}
+	return World::maxLength;
+}
+
 
 int Car::getLength() {
 	return length;

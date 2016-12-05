@@ -17,6 +17,7 @@ private:
 	Lane* destination = nullptr;
 
 public:
+	static int count;
 	Car();
 	Car(Lane* road, int length);
 	~Car();
@@ -30,6 +31,7 @@ public:
 	Lane* doChangeLane(bool next);
 	void setDestination(Lane* destination);
 	Lane* getDestination();
+	int getFrontDistance();
 };
 
 #endif /* CAR_HPP_ */

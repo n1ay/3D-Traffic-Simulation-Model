@@ -22,7 +22,9 @@ private:
 	Road* road;
 	int direction;
 	int length;
+	bool toCrossroad = true;
 	std::vector<Car*> lanes[2];
+
 
 public:
 
@@ -44,6 +46,8 @@ public:
 	void updateCarChangeLane(bool next);
 	void putCar(Car* car, int position);
 	bool isUsed(int position);
+	bool getCrossInfo();
+	void setCrossInfo(bool set);
 };
 
 #endif /* LANE_HPP_ */

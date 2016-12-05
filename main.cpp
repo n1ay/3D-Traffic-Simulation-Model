@@ -32,13 +32,13 @@ int main(int argc, char* argv[]) {
 
 	srand(time(NULL));
 	//World::initWorldVariables(15, 20, 5, 5, 20, 90);
-	World::initWorldVariables(0, 20, 5, 5, 20, 90);
+	World::initWorldVariables(0, 20, 4, 5, 20, 90);
 
 
 	Road road(20, 3, 1);
 
 	for(int i=0; i<50; i++) {
-		(road.getLanes(LEFT))[1/*rand()%road.getLanesQuantity(LEFT)*/]->spawnCar(1);
+		(road.getLanes(LEFT))[1/*rand()%road.getLanesQuantity(LEFT)*/]->spawnCar(2);
 		(road.getLanes(RIGHT))[rand()%road.getLanesQuantity(RIGHT)]->spawnCar(3);
 		std::cout<<road<<std::endl;
 		road.cleanUpdate();
