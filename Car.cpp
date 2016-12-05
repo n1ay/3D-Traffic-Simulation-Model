@@ -100,7 +100,7 @@ int Car::getFrontDistance() {
 		}
 	}
 
-	for(int i=1; i<=velocity+World::maxLength - 1; ++i) {
+	for(int i=1; i<=velocity+World::maxLength; ++i) {
 		if(i+position>=lane->length)
 			return i;
 		if(lane->getCar(i+position) != nullptr) {
@@ -116,7 +116,7 @@ int Car::getLength() {
 }
 
 std::ostream & operator<< (std::ostream & ostr, const Car & car) {
-	ostr<<"[x"<<car.velocity<<"]";
+	ostr<<"["<<car.velocity<<"l"<<car.length<<"]";
 	return ostr;
 }
 
@@ -134,10 +134,11 @@ Lane* Car::doChangeLane(bool next) {
 }
 
 void Car::changeLane(Lane* lane) {
-	if(changedLane || lane == nullptr || lane->getCar(position)!=nullptr) return;
+	bool block = lane->isUsed(position, length);
+	if(changedLane || block) return;
 	int r = rand()%100;
-	bool block = false;
-	for(int i =0; position-i>=0; i++) {
+	block = false;
+	for(int i=0; position-i>=0; i++) {
 		if(lane->getCar(position-i) != nullptr) {
 			if(lane->getCar(position-i)->velocity >= i) {
 				block = true;
@@ -157,4 +158,12 @@ void Car::setDestination(Lane* destination) {
 
 Lane* Car::getDestination() {
 	return destination;
+}
+
+void Car::setLane(Lane* lane) {
+	this->lane = lane;
+}
+
+void Car::setPosition(int position) {
+	this->position = position;
 }

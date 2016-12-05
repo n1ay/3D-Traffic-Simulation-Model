@@ -28,6 +28,10 @@ public:
 	void setDestination(Lane* from);
 	void transferAll();
 	friend std::ostream & operator<< (std::ostream & ostr, Crossroad & crossroad);
+	void addRoad(Road* road);
+	void update();
+	void lockUpdate();
+	void cleanUpdate();
 };
 
 #endif /* CROSSROAD_HPP_ */

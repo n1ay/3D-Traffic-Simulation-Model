@@ -8,6 +8,7 @@
 #include "Crossroad.hpp"
 #include <iostream>
 #include "Car.hpp"
+#include "Road.hpp"
 
 Crossroad::Crossroad() {
 
@@ -37,29 +38,54 @@ void Crossroad::setDestination(Lane* from) {
 	int r = rand()%100;
 	for(auto& iter: vec->second) {
 		cumulativeProbability += iter.second;
-		if(r<cumulativeProbability)
+		if(r<cumulativeProbability) {
 			car->setDestination(iter.first);
+			return;
+		}
 	}
 }
 
 void Crossroad::transfer(Lane* from) {
 	Car* car = from->getCar(from->getLength()-1);
-	if(!car) return;
+	if(!car || !car->getDestination()) return;
 	car->getDestination()->putCar(car, 0);
 	from->putCar(nullptr, from->getLength()-1);
+	car->setLane(car->getDestination());
+	car->setPosition(0);
+	car->setDestination(nullptr);
 }
 
 void Crossroad::transferAll() {
 	for(auto& iter: rules) {
+		setDestination(iter.first);
 		transfer(iter.first);
 	}
 }
 
 std::ostream & operator<< (std::ostream & ostr, Crossroad & crossroad) {
 	for(auto& iter: crossroad.roads) {
-		ostr<<iter;
+		ostr<<*iter;
 		ostr<<"==============================\n";
 		ostr<<"==============================\n";
 	}
 	return ostr;
+}
+
+void Crossroad::addRoad(Road* road) {
+	roads.push_back(road);
+}
+
+void Crossroad::update() {
+	for(auto& iter: roads)
+		iter->update();
+}
+
+void Crossroad::lockUpdate() {
+	for(auto& iter: roads)
+		iter->lockUpdate();
+}
+
+void Crossroad::cleanUpdate() {
+	for(auto& iter: roads)
+		iter->cleanUpdate();
 }

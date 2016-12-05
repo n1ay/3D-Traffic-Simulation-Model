@@ -32,6 +32,8 @@ public:
 	void setDestination(Lane* destination);
 	Lane* getDestination();
 	int getFrontDistance();
+	void setLane(Lane* lane);
+	void setPosition(int position);
 };
 
 #endif /* CAR_HPP_ */

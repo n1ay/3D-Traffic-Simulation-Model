@@ -50,14 +50,14 @@ std::ostream & operator<<(std::ostream & ostr, const Lane & lane) {
 	if(lane.direction == RIGHT) {
 	for(int i=0; i<lane.length; i++)
 		if(lane.lanes[0][i] == nullptr)
-			ostr<<"[  ]";
+			ostr<<"[   ]";
 		else
 			ostr<<(*(lane.lanes[0][i]));
 	}
 	else {
 		for(int i=lane.length-1; i>=0; i--)
 				if(lane.lanes[0][i] == nullptr)
-					ostr<<"[  ]";
+					ostr<<"[   ]";
 				else
 					ostr<<(*(lane.lanes[0][i]));
 	}
@@ -74,7 +74,7 @@ void Lane::log() {
 			if(lanes[0][i])
 				std::cout<<(*(lanes[0][i]));
 			else
-				std::cout<<"[  ]";
+				std::cout<<"[   ]";
 
 
 		std::cout<<"\nTemp:"<<std::endl;
@@ -83,7 +83,7 @@ void Lane::log() {
 			if(lanes[1][i])
 				std::cout<<(*(lanes[1][i]));
 			else
-				std::cout<<"[  ]";
+				std::cout<<"[   ]";
 		std::cout<<std::endl;
 	}
 	else {
@@ -93,7 +93,7 @@ void Lane::log() {
 					if(lanes[0][i])
 						std::cout<<(*(lanes[0][i]));
 					else
-						std::cout<<"[  ]";
+						std::cout<<"[   ]";
 
 
 				std::cout<<"\nTemp:"<<std::endl;
@@ -102,7 +102,7 @@ void Lane::log() {
 					if(lanes[1][i])
 						std::cout<<(*(lanes[1][i]));
 					else
-						std::cout<<"[  ]";
+						std::cout<<"[   ]";
 				std::cout<<std::endl;
 	}
 
@@ -166,11 +166,17 @@ void Lane::putCar(Car* car, int position) {
 	lanes[0][position] = car;
 }
 
-bool Lane::isUsed(int position) {
+//TODO: BUG
+bool Lane::isUsed(int position, int mylength) {
+	if (!this) return true;
 	for(int i=position; i<position+World::maxLength && i<length; i++) {
-		if(lanes[0][i])
+		if(lanes[0][i] && (position >= i-lanes[0][i]->getLength() + 1))
 			return true;
 	}
+	for(int i=position; i>position-mylength && i>=0; i--) {
+			if(lanes[0][i])
+				return true;
+		}
 	return false;
 }
 

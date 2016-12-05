@@ -45,7 +45,7 @@ public:
 	Lane* seekLane(bool next);
 	void updateCarChangeLane(bool next);
 	void putCar(Car* car, int position);
-	bool isUsed(int position);
+	bool isUsed(int position, int length);
 	bool getCrossInfo();
 	void setCrossInfo(bool set);
 };
