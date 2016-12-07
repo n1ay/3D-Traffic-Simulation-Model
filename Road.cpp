@@ -19,6 +19,9 @@ Road::~Road() {
 
 }
 
+//it is called lane1 and lane2 instead of from and to
+//because on road when its forbidden to change lane from lane1 to lane2
+//then its also forbidden to do the same from lane 2 to lane1
 void Road::forbidLaneChange(Lane* lane1, Lane* lane2) {
 	auto pair = forbiddenLaneChanges.find(lane1);
 	if(pair == forbiddenLaneChanges.map::end()) {
@@ -110,3 +113,20 @@ void Road::cleanUpdate() {
 	}
 }
 
+bool Road::isForbiddenToChangeLane(Lane* lane1, Lane* lane2) {
+	auto pair = forbiddenLaneChanges.find(lane1);
+	if(pair == forbiddenLaneChanges.end()) {
+		pair = forbiddenLaneChanges.find(lane2);
+		if(pair == forbiddenLaneChanges.end())
+			return false;
+		for(auto iter: *(pair->second)) {
+			if(iter == lane1)
+				return true;
+		}
+	}
+	for(auto iter: *(pair->second)) {
+				if(iter == lane2)
+					return true;
+			}
+	return false;
+}

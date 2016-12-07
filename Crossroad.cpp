@@ -47,7 +47,9 @@ void Crossroad::setDestination(Lane* from) {
 
 void Crossroad::transfer(Lane* from) {
 	Car* car = from->getCar(from->getLength()-1);
-	if(!car || !car->getDestination()) return;
+	TrafficLight::LightColor color;
+	color = (from->getTrafficLight()==nullptr)?(TrafficLight::GREEN):(from->getTrafficLight()->getLightColor());
+	if(!car || !car->getDestination() || color==TrafficLight::RED || car->getDestination()->isUsed(0, 1)) return;
 	car->getDestination()->putCar(car, 0);
 	from->putCar(nullptr, from->getLength()-1);
 	car->setLane(car->getDestination());
@@ -88,4 +90,8 @@ void Crossroad::lockUpdate() {
 void Crossroad::cleanUpdate() {
 	for(auto& iter: roads)
 		iter->cleanUpdate();
+}
+
+void Crossroad::addTrafficLight(TrafficLight* trafficLight) {
+	trafficLights.push_back(trafficLight);
 }

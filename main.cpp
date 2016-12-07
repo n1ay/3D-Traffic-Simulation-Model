@@ -21,9 +21,10 @@
 /*
  *
  * Pradwopodobnie działa -> TODO: Dorobić zmianę pasa ruchu
- * TODO: Road destructor
- * TODO: Dodać, żeby przy zmianie pasa przestrzegał zasad forbidLaneChange w klasie Road
- * TODO: Dorobić możliwość wcześniejszego kończenia/późniejszego zakańczania lane'ów
+ * Chyba już działa -> TODO: Dodać, żeby przy zmianie pasa przestrzegał zasad forbidLaneChange w klasie Road
+ * TODO: jest bug przy przejeżdżaniu na skrzyżowaniu (funkcja transfer), można było przejechać, nawet jak nie było miejsca,
+ * 		 zostało tutaj zastosowane rozwiązanie tymczasowe isUsed(0,1), które częściowo spełnia zadanie, ale należy poprawić potem
+ * TODO: Wyświetlanie: każdy samochód ma label, tak by można go było zidentyfikować
  *
  */
 
@@ -46,6 +47,10 @@ int main(int argc, char* argv[]) {
 	crossroad.addRule(road1.getLanes(RIGHT)[0], rule1);
 	crossroad.addRoad(&road1);
 	crossroad.addRoad(&road2);
+	TrafficLight trafficLight;
+	trafficLight.setLightColor(TrafficLight::GREEN);
+	trafficLight.addLane(road1.getLanes(RIGHT)[0]);
+	road1.forbidLaneChange(road1.getLanes(RIGHT)[0], road1.getLanes(RIGHT)[1]);
 
 	for(int i=0; i<50; i++) {
 		road1.getLanes(RIGHT)[rand()%road1.getLanesQuantity(RIGHT)]->spawnCar(rand()%World::maxLength+1);

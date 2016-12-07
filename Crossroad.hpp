@@ -9,16 +9,14 @@
 #define CROSSROAD_HPP_
 
 #include "Lane.hpp"
+#include "TrafficLight.hpp"
 #include <map>
-
-enum trafficLight {
-	GREEN, RED
-};
 
 class Crossroad {
 private:
 	std::vector<Road*> roads;
 	std::map<Lane*, std::vector<std::pair<Lane*, int> > > rules;
+	std::vector<TrafficLight*> trafficLights;
 
 public:
 	Crossroad();
@@ -32,6 +30,7 @@ public:
 	void update();
 	void lockUpdate();
 	void cleanUpdate();
+	void addTrafficLight(TrafficLight*);
 };
 
 #endif /* CROSSROAD_HPP_ */

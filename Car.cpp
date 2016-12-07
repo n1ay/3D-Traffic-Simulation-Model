@@ -134,7 +134,8 @@ Lane* Car::doChangeLane(bool next) {
 }
 
 void Car::changeLane(Lane* lane) {
-	bool block = lane->isUsed(position, length);
+	bool block = lane?(lane->isUsed(position, length)):true;
+	if (this->lane->road->isForbiddenToChangeLane(this->lane, lane)) return;
 	if(changedLane || block) return;
 	int r = rand()%100;
 	block = false;

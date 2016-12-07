@@ -34,6 +34,7 @@ public:
 	int getLength();
 	int getLanesQuantity(int direction);
 	void cleanUpdate();
+	bool isForbiddenToChangeLane(Lane* lane1, Lane* lane2);
 
 };
 

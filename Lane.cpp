@@ -136,7 +136,6 @@ int Lane::getLength() {
 
 //return next lane from road vector
 //if next==false then returns previous lane
-
 Lane* Lane::seekLane(bool next=true) {
 	int size = road->getLanes(direction).size();
 	if(next) {
@@ -166,9 +165,7 @@ void Lane::putCar(Car* car, int position) {
 	lanes[0][position] = car;
 }
 
-//TODO: BUG
 bool Lane::isUsed(int position, int mylength) {
-	if (!this) return true;
 	for(int i=position; i<position+World::maxLength && i<length; i++) {
 		if(lanes[0][i] && (position >= i-lanes[0][i]->getLength() + 1))
 			return true;
@@ -186,4 +183,12 @@ bool Lane::getCrossInfo() {
 
 void Lane::setCrossInfo(bool set) {
 	toCrossroad = set;
+}
+
+TrafficLight* Lane::getTrafficLight() {
+	return trafficLight;
+}
+
+void Lane::setTrafficLight(TrafficLight* trafficLight) {
+	this->trafficLight = trafficLight;
 }

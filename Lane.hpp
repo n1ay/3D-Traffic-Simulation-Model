@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include "TrafficLight.hpp"
 
 enum Direction {
 	LEFT = 0,
@@ -10,6 +11,7 @@ enum Direction {
 };
 
 //forward declaration of Car
+class TrafficLight;
 class Car;
 class Road;
 
@@ -24,6 +26,7 @@ private:
 	int length;
 	bool toCrossroad = true;
 	std::vector<Car*> lanes[2];
+	TrafficLight* trafficLight;
 
 
 public:
@@ -48,6 +51,9 @@ public:
 	bool isUsed(int position, int length);
 	bool getCrossInfo();
 	void setCrossInfo(bool set);
+	void changeLight();
+	void setTrafficLight(TrafficLight* trafficLight);
+	TrafficLight* getTrafficLight();
 };
 
 #endif /* LANE_HPP_ */
