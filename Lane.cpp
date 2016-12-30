@@ -6,7 +6,7 @@
 
 
 Lane::Lane(Road* road, int direction, int length):
-	road(road), direction(direction), length(length), lanes({std::vector<Car*>(length), std::vector<Car*>(length)})
+	road(road), direction(direction), length(length), lanes({std::vector<Car*>(length), std::vector<Car*>(length)}), trafficLight(nullptr)
 {}
 
 Lane::~Lane() {

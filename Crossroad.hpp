@@ -13,7 +13,7 @@
 #include <map>
 
 class Crossroad {
-private:
+protected:
 	std::vector<Road*> roads;
 	std::map<Lane*, std::vector<std::pair<Lane*, int> > > rules;
 	std::vector<TrafficLight*> trafficLights;

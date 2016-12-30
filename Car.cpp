@@ -27,21 +27,62 @@ Car* Car::copy(Lane* laneptr) {
 	return car;
 }
 
+
+//TODO: dodać zmienną, która warunkuje czy trzeba zwiększyć prędkość samochodu w update, czy nie
+//TODO: jest to już gotowe, ale nie tak jak powinno i trochę na około
+
 void Car::update() {
 	if(checkFrontDistance()==-1) {
 		lane->removeCar(position);
 		return;
 	}
 	int preUpdateVelocity = velocity;
+	velocity = moveSmooth();
 	velocity = checkFrontDistance();
 	lane->moveCar(position, position+velocity);
 	position += velocity;
 
 	if(rand()%100 < World::probability && velocity > 0)
 		--velocity;
-	else if(velocity<World::maxVelocity && preUpdateVelocity == velocity && getFrontDistance())
+	else if(velocity<World::maxVelocity && preUpdateVelocity == velocity && getFrontDistance() && doAccelerate)
 		++velocity;
 	changedLane = false;
+	doAccelerate = true;
+}
+
+int Car::moveSmooth() {
+	int l = lane->getLength();
+	Car* car = nullptr;
+	int vel, pos;
+	for(int i=position+1; i<l; i++)
+		if(lane->getCar(i)) {
+			car=lane->getCar(i);
+			break;
+		}
+
+	if(!car) {
+		vel = 0;
+		pos = lane->getLength();
+	}
+	else {
+		vel = car->velocity;
+		pos = car->position - (car->length-1);
+	}
+
+	if(velocity <= vel) {
+		return velocity;
+	}
+
+	int dv = (velocity - vel)*(velocity - vel)/(pos-position);
+	int dv1 = (velocity - vel+1)*(velocity - vel+1)/(pos-position);
+
+	if(dv1)
+		doAccelerate = false;
+
+
+	return std::max(1, velocity - dv);
+
+
 }
 
 int Car::checkFrontDistance() {

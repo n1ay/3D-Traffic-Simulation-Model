@@ -34,7 +34,7 @@ int main(int argc, char* argv[]) {
 
 	srand(time(NULL));
 	//World::initWorldVariables(15, 20, 5, 5, 20, 90);
-	World::initWorldVariables(0, 20, 4, 5, 20, 90);
+	World::initWorldVariables(0, 20, 4, 2, 20, 90);
 
 	Crossroad crossroad;
 

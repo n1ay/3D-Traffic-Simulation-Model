@@ -15,6 +15,7 @@ private:
 	int velocity;
 	bool changedLane = false;
 	Lane* destination = nullptr;
+	bool doAccelerate = true;
 
 public:
 	static int count;
@@ -34,6 +35,7 @@ public:
 	int getFrontDistance();
 	void setLane(Lane* lane);
 	void setPosition(int position);
+	int moveSmooth();
 };
 
 #endif /* CAR_HPP_ */
