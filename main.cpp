@@ -10,6 +10,8 @@
 #include "Lane.hpp"
 #include "Road.hpp"
 #include "Crossroad.hpp"
+#include "Model.hpp"
+#include "MapParser.hpp"
 
 #include <iostream>
 
@@ -34,9 +36,13 @@ int main(int argc, char* argv[]) {
 
 	srand(time(NULL));
 	//World::initWorldVariables(15, 20, 5, 5, 20, 90);
-	World::initWorldVariables(0, 20, 4, 2, 20, 90);
+	/*World::initWorldVariables(0, 20, 4, 2, 20, 90);
+
+	Model model;
 
 	Crossroad crossroad;
+
+	model.addCrossroad(&crossroad);
 
 	Road road1(15, 1, 3);
 	Road road2(25, 2, 2);
@@ -55,12 +61,14 @@ int main(int argc, char* argv[]) {
 	for(int i=0; i<50; i++) {
 		road1.getLanes(RIGHT)[rand()%road1.getLanesQuantity(RIGHT)]->spawnCar(rand()%World::maxLength+1);
 		std::cout<<crossroad<<std::endl;
-		crossroad.cleanUpdate();
-		crossroad.transferAll();
-		crossroad.update();
-		crossroad.lockUpdate();
+		model.update();
 		usleep(500000);
-	}
+	}*/
 
+	MapParser mapParser;
+	Model model = mapParser.readmap();
+	while(true) {
+		model.update();
+	}
 	return 0;
 }

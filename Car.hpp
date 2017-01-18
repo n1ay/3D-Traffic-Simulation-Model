@@ -16,6 +16,7 @@ private:
 	bool changedLane = false;
 	Lane* destination = nullptr;
 	bool doAccelerate = true;
+	bool alreadyUpdated = false;
 
 public:
 	static int count;
@@ -36,6 +37,7 @@ public:
 	void setLane(Lane* lane);
 	void setPosition(int position);
 	int moveSmooth();
+	void setUpdated(bool updated);
 };
 
 #endif /* CAR_HPP_ */

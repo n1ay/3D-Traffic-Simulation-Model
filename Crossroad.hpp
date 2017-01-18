@@ -17,6 +17,7 @@ protected:
 	std::vector<Road*> roads;
 	std::map<Lane*, std::vector<std::pair<Lane*, int> > > rules;
 	std::vector<TrafficLight*> trafficLights;
+	bool intersects=true;
 
 public:
 	Crossroad();
@@ -30,7 +31,9 @@ public:
 	void update();
 	void lockUpdate();
 	void cleanUpdate();
+	void allowUpdate();
 	void addTrafficLight(TrafficLight*);
+	void setIntersection(bool intersects);
 };
 
 #endif /* CROSSROAD_HPP_ */

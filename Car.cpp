@@ -32,6 +32,9 @@ Car* Car::copy(Lane* laneptr) {
 //TODO: jest to już gotowe, ale nie tak jak powinno i trochę na około
 
 void Car::update() {
+	if(alreadyUpdated)
+		return;
+	alreadyUpdated = true;
 	if(checkFrontDistance()==-1) {
 		lane->removeCar(position);
 		return;
@@ -208,4 +211,8 @@ void Car::setLane(Lane* lane) {
 
 void Car::setPosition(int position) {
 	this->position = position;
+}
+
+void Car::setUpdated(bool updated) {
+	this->alreadyUpdated = updated;
 }

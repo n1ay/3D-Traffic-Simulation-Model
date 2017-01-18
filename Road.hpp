@@ -16,6 +16,7 @@ class Lane;
 
 class Road {
 friend std::ostream & operator<<(std::ostream & stream, const Road & road);
+friend class MapParser;
 private:
 	int length;
 	int left;
@@ -34,6 +35,7 @@ public:
 	int getLength();
 	int getLanesQuantity(int direction);
 	void cleanUpdate();
+	void allowUpdate();
 	bool isForbiddenToChangeLane(Lane* lane1, Lane* lane2);
 
 };

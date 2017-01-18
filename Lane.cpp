@@ -29,6 +29,12 @@ void Lane::update() {
 			car->update();
 }
 
+void Lane::allowUpdate() {
+	for(auto &car : lanes[0])
+		if(car)
+			car->setUpdated(false);
+}
+
 void Lane::lockUpdate() {
 	std::swap(lanes[0], lanes[1]);
 }

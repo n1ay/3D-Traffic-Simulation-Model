@@ -82,6 +82,11 @@ void Crossroad::update() {
 		iter->update();
 }
 
+void Crossroad::allowUpdate() {
+	for(auto& iter: roads)
+		iter->allowUpdate();
+}
+
 void Crossroad::lockUpdate() {
 	for(auto& iter: roads)
 		iter->lockUpdate();
@@ -94,4 +99,8 @@ void Crossroad::cleanUpdate() {
 
 void Crossroad::addTrafficLight(TrafficLight* trafficLight) {
 	trafficLights.push_back(trafficLight);
+}
+
+void Crossroad::setIntersection(bool intersects) {
+	this->intersects=intersects;
 }

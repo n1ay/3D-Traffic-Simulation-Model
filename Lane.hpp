@@ -42,6 +42,7 @@ public:
 	void update();
 	void cleanUpdate();
 	void lockUpdate();
+	void allowUpdate();
 
 	int getLength();
 	void log();

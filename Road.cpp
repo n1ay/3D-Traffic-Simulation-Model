@@ -64,6 +64,15 @@ void Road::update() {
 		lanesRight[i] -> update();
 }
 
+void Road::allowUpdate() {
+	changeLanes();
+	for(int i=0; i<left; i++)
+		lanesLeft[i] -> allowUpdate();
+
+	for(int i=0; i<right; i++)
+		lanesRight[i] -> allowUpdate();
+}
+
 void Road::lockUpdate() {
 	for(int i=0; i<left; i++)
 		lanesLeft[i] -> lockUpdate();
