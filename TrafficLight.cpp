@@ -45,7 +45,19 @@ TrafficLight::LightColor TrafficLight::getLightColor() {
 	return lightColor;
 }
 
+void TrafficLight::setState(LightColor lightColor, int time) {
+	setLightColor(lightColor);
+	cycleTime=time;
+}
+
 void TrafficLight::addLane(Lane* lane) {
 	lane->setTrafficLight(this);
+}
+
+void TrafficLight::tick() {
+	if(cycleTime)
+		--cycleTime;
+	else
+		changeLight();
 }
 

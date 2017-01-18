@@ -32,6 +32,8 @@ public:
 	void setLightColor(LightColor color);
 	LightColor getLightColor();
 	void addLane(Lane* lane);
+	void tick();
+	void setState(LightColor lightColor, int time);
 };
 
 #endif /* TRAFFICLIGHT_HPP_ */

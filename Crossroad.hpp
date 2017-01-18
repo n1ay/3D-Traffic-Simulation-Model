@@ -16,7 +16,6 @@ class Crossroad {
 protected:
 	std::vector<Road*> roads;
 	std::map<Lane*, std::vector<std::pair<Lane*, int> > > rules;
-	std::vector<TrafficLight*> trafficLights;
 	bool intersects=true;
 
 public:
@@ -32,7 +31,6 @@ public:
 	void lockUpdate();
 	void cleanUpdate();
 	void allowUpdate();
-	void addTrafficLight(TrafficLight*);
 	void setIntersection(bool intersects);
 };
 

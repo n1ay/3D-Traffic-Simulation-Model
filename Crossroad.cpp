@@ -97,10 +97,6 @@ void Crossroad::cleanUpdate() {
 		iter->cleanUpdate();
 }
 
-void Crossroad::addTrafficLight(TrafficLight* trafficLight) {
-	trafficLights.push_back(trafficLight);
-}
-
 void Crossroad::setIntersection(bool intersects) {
 	this->intersects=intersects;
 }
