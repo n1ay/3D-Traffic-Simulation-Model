@@ -14,6 +14,7 @@ enum Direction {
 class TrafficLight;
 class Car;
 class Road;
+class Model;
 
 class Lane {
 
@@ -24,7 +25,8 @@ private:
 	Road* road;
 	int direction;
 	int length;
-	bool toCrossroad = true;
+	bool toCrossroad = false;
+	int spawnProbability = 0;
 	std::vector<Car*> lanes[2];
 	TrafficLight* trafficLight;
 
@@ -55,6 +57,9 @@ public:
 	void changeLight();
 	void setTrafficLight(TrafficLight* trafficLight);
 	TrafficLight* getTrafficLight();
+	void setSpawnProbability(int probability);
+	void trySpawn();
+	int getVehicleLength();
 };
 
 #endif /* LANE_HPP_ */

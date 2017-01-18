@@ -3,6 +3,8 @@
 #include "World.hpp"
 #include "Road.hpp"
 #include <algorithm>
+#include <cstdlib>
+#include "Model.hpp"
 
 
 Lane::Lane(Road* road, int direction, int length):
@@ -27,6 +29,7 @@ void Lane::update() {
 	for(auto &car : lanes[0])
 		if(car)
 			car->update();
+	trySpawn();
 }
 
 void Lane::allowUpdate() {
@@ -197,4 +200,26 @@ TrafficLight* Lane::getTrafficLight() {
 
 void Lane::setTrafficLight(TrafficLight* trafficLight) {
 	this->trafficLight = trafficLight;
+}
+
+void Lane::setSpawnProbability(int probability) {
+	this->spawnProbability = probability;
+}
+
+void Lane::trySpawn() {
+	int r = rand()%100;
+	if(r<spawnProbability) {
+		spawnCar(getVehicleLength());
+	}
+}
+
+int Lane::getVehicleLength() {
+	int r=rand()%100;
+	int sizes[] = {4, 5, 6, 7, 14};
+	int prob[] = {0, 10, 83, 93, 99};
+	for(int i=4; i>=0; i--) {
+		if(prob[i]<=r)
+			return sizes[i];
+	}
+	return -1;
 }

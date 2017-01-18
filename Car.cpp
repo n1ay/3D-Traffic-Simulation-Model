@@ -7,7 +7,7 @@
 int Car::count = 0;
 
 Car::Car(Lane* lane, int length):
-	lane(lane), length(length), position(0), velocity(rand()%(World::maxVelocity+1))
+	lane(lane), length(length), position(0), velocity(rand()%((World::maxVelocity-4)/2)+4)
 {
 	Car::count++;
 }

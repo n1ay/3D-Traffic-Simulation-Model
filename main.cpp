@@ -22,6 +22,13 @@
 
 /*
  *
+ * 1 cell = 1 m
+ * 1 update = 0.5 s
+ * velocity of 1 = 2 m/s -> 7.2km/h
+ *
+ *
+ *
+ *
  * Pradwopodobnie działa -> TODO: Dorobić zmianę pasa ruchu
  * Chyba już działa -> TODO: Dodać, żeby przy zmianie pasa przestrzegał zasad forbidLaneChange w klasie Road
  * TODO: jest bug przy przejeżdżaniu na skrzyżowaniu (funkcja transfer), można było przejechać, nawet jak nie było miejsca,
