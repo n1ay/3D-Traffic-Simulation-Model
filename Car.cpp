@@ -7,13 +7,13 @@
 int Car::count = 0;
 
 Car::Car(Lane* lane, int length):
-	lane(lane), length(length), position(0), velocity(rand()%((World::maxVelocity-4)/2)+4)
+	lane(lane), length(length), position(0), velocity(rand()%((World::maxVelocity-4)/3)+4)
 {
-	Car::count++;
+	id = Car::count++;
 }
 
 Car::Car():
-	lane(nullptr), length(0), position(-1), velocity(-1)
+	lane(nullptr), length(0), position(-1), velocity(-1), id(0)
 {}
 
 Car::~Car() {

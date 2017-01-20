@@ -51,8 +51,9 @@ void Lane::spawnCar(int length) {
 			}
 		}
 	}
+	//TODO: lanes[0]->lanes[1]
 	if(free)
-		lanes[0][0] = new Car(this, length);
+		lanes[1][0] = new Car(this, length);
 }
 
 std::ostream & operator<<(std::ostream & ostr, const Lane & lane) {

@@ -74,6 +74,9 @@ std::ostream & operator<< (std::ostream & ostr, Crossroad & crossroad) {
 }
 
 void Crossroad::addRoad(Road* road) {
+	for(auto r: roads)
+		if(r==road)
+			return;
 	roads.push_back(road);
 }
 

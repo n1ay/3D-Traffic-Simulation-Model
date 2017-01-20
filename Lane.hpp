@@ -22,6 +22,7 @@ class Lane {
 	friend std::ostream & operator<<(std::ostream &, const Lane &);
 
 private:
+	friend class FrameParser;
 	Road* road;
 	int direction;
 	int length;

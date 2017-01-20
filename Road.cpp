@@ -65,7 +65,6 @@ void Road::update() {
 }
 
 void Road::allowUpdate() {
-	changeLanes();
 	for(int i=0; i<left; i++)
 		lanesLeft[i] -> allowUpdate();
 

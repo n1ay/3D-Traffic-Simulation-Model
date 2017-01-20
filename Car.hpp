@@ -7,12 +7,13 @@
 class Lane;
 
 class Car {
-
+friend class FrameParser;
 private:
 	Lane* lane;
 	int length;
 	int position;
 	int velocity;
+	int id;
 	bool changedLane = false;
 	Lane* destination = nullptr;
 	bool doAccelerate = true;

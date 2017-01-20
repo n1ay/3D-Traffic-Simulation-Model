@@ -12,6 +12,7 @@
 #include "Crossroad.hpp"
 #include "Model.hpp"
 #include "MapParser.hpp"
+#include "FrameParser.hpp"
 
 #include <iostream>
 
@@ -42,7 +43,7 @@ int main(int argc, char* argv[]) {
 	std::cout<<argc<<" "<<argv<<std::endl;
 
 	srand(time(NULL));
-	//World::initWorldVariables(15, 20, 5, 5, 20, 90);
+	World::initWorldVariables(15, 50, 20, 14, 20, 90);
 	/*World::initWorldVariables(0, 20, 4, 2, 20, 90);
 
 	Model model;
@@ -73,9 +74,16 @@ int main(int argc, char* argv[]) {
 	}*/
 
 	MapParser mapParser;
+	FrameParser frameParser;
+	frameParser.createTree();
 	Model model = mapParser.readmap();
-	while(true) {
+	for(int i=0; i<2*30; i++) {
+		frameParser.parseFrame(model);
 		model.update();
+		//std::cout<<*(model.crossroads.at(0))<<std::endl;
+		//usleep(500000);
 	}
+	frameParser.parseFrame(model);
+	frameParser.saveToFile();
 	return 0;
 }
