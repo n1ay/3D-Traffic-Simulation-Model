@@ -74,50 +74,6 @@ std::ostream & operator<<(std::ostream & ostr, const Lane & lane) {
 	return ostr;
 }
 
-void Lane::log() {
-
-	std::cout<<"====================================\n";
-	if(direction == Direction::RIGHT) {
-		std::cout<<"direction: ->\nData:\n";
-
-		for(int i=0; i<length; i++)
-			if(lanes[0][i])
-				std::cout<<(*(lanes[0][i]));
-			else
-				std::cout<<"[   ]";
-
-
-		std::cout<<"\nTemp:"<<std::endl;
-
-		for(int i=0; i<length; i++)
-			if(lanes[1][i])
-				std::cout<<(*(lanes[1][i]));
-			else
-				std::cout<<"[   ]";
-		std::cout<<std::endl;
-	}
-	else {
-		std::cout<<"direction: <-\nData:\n";
-
-				for(int i=length-1; i>=0; i--)
-					if(lanes[0][i])
-						std::cout<<(*(lanes[0][i]));
-					else
-						std::cout<<"[   ]";
-
-
-				std::cout<<"\nTemp:"<<std::endl;
-
-				for(int i=length-1; i>=0; i--)
-					if(lanes[1][i])
-						std::cout<<(*(lanes[1][i]));
-					else
-						std::cout<<"[   ]";
-				std::cout<<std::endl;
-	}
-
-}
-
 Car* Lane::getCar(int position) {
 	return lanes[0][position];
 }
@@ -203,12 +159,12 @@ void Lane::setTrafficLight(TrafficLight* trafficLight) {
 	this->trafficLight = trafficLight;
 }
 
-void Lane::setSpawnProbability(int probability) {
+void Lane::setSpawnProbability(float probability) {
 	this->spawnProbability = probability;
 }
 
 void Lane::trySpawn() {
-	int r = rand()%100;
+	float r = 1.0f*rand()/RAND_MAX*100;
 	if(r<spawnProbability) {
 		spawnCar(getVehicleLength());
 	}

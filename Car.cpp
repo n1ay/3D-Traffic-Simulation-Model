@@ -82,10 +82,7 @@ int Car::moveSmooth() {
 	if(dv1)
 		doAccelerate = false;
 
-
 	return std::max(1, velocity - dv);
-
-
 }
 
 int Car::checkFrontDistance() {

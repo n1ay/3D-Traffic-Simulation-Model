@@ -44,9 +44,8 @@ int main(int argc, char* argv[]) {
 
 	srand(time(NULL));
 	World::initWorldVariables(15, 50, 20, 14, 20, 90);
-	/*World::initWorldVariables(0, 20, 4, 2, 20, 90);
 
-	Model model;
+	/*Model model;
 
 	Crossroad crossroad;
 
@@ -67,7 +66,7 @@ int main(int argc, char* argv[]) {
 	road1.forbidLaneChange(road1.getLanes(RIGHT)[0], road1.getLanes(RIGHT)[1]);
 
 	for(int i=0; i<50; i++) {
-		road1.getLanes(RIGHT)[rand()%road1.getLanesQuantity(RIGHT)]->spawnCar(rand()%World::maxLength+1);
+		road1.getLanes(RIGHT)[rand()%road1.getLanesQuantity(RIGHT)]->spawnCar(5);
 		std::cout<<crossroad<<std::endl;
 		model.update();
 		usleep(500000);
@@ -77,10 +76,10 @@ int main(int argc, char* argv[]) {
 	FrameParser frameParser;
 	frameParser.createTree();
 	Model model = mapParser.readmap();
-	for(int i=0; i<2*30; i++) {
+	for(int i=0; i<2*10*60; i++) {
 		frameParser.parseFrame(model);
 		model.update();
-		//std::cout<<*(model.crossroads.at(0))<<std::endl;
+		//std::cout<<*(model.crossroads.at(1))<<std::endl;
 		//usleep(500000);
 	}
 	frameParser.parseFrame(model);

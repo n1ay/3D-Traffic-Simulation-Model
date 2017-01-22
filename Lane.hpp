@@ -27,7 +27,7 @@ private:
 	int direction;
 	int length;
 	bool toCrossroad = false;
-	int spawnProbability = 0;
+	float spawnProbability = 0.0f;
 	std::vector<Car*> lanes[2];
 	TrafficLight* trafficLight;
 
@@ -48,7 +48,6 @@ public:
 	void allowUpdate();
 
 	int getLength();
-	void log();
 	Lane* seekLane(bool next);
 	void updateCarChangeLane(bool next);
 	void putCar(Car* car, int position);
@@ -58,7 +57,7 @@ public:
 	void changeLight();
 	void setTrafficLight(TrafficLight* trafficLight);
 	TrafficLight* getTrafficLight();
-	void setSpawnProbability(int probability);
+	void setSpawnProbability(float probability);
 	void trySpawn();
 	int getVehicleLength();
 };
