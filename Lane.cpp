@@ -172,8 +172,8 @@ void Lane::trySpawn() {
 
 int Lane::getVehicleLength() {
 	int r=rand()%100;
-	int sizes[] = {4, 5, 6, 7, 14};
-	int prob[] = {0, 10, 83, 93, 99};
+	int sizes[] = {4, 5, 6, 14};
+	int prob[] = {0, 11, 83, 91, 99};
 	for(int i=4; i>=0; i--) {
 		if(prob[i]<=r)
 			return sizes[i];
