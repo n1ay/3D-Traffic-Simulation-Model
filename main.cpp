@@ -39,7 +39,7 @@ int main(int argc, char* argv[]) {
 	FrameParser frameParser;
 	frameParser.createTree();
 	Model model = mapParser.readmap();
-	for(int i=0; i<2*10*60; i++) {
+	for(int i=0; i<2*5*60*60; i++) {
 		frameParser.parseFrame(model);
 		model.update();
 		//std::cout<<*(model.crossroads.at(1))<<std::endl;

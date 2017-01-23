@@ -18,6 +18,7 @@ class Model {
 
 friend class MapParser;
 friend class FrameParser;
+friend int main(int argc, char** argv);
 private:
 	unsigned long int frame = 0;
 	std::vector<Crossroad*> crossroads;
