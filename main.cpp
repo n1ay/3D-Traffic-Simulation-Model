@@ -33,7 +33,7 @@ int main(int argc, char* argv[]) {
 	std::cout<<argc<<" "<<argv<<std::endl;
 
 	srand(time(NULL));
-	World::initWorldVariables(15, 50, 20, 14, 20, 90);
+	World::initWorldVariables(1, 50, 20, 14, 20, 90);
 
 	MapParser mapParser;
 	FrameParser frameParser;
