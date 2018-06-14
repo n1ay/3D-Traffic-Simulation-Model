@@ -1,0 +1,10 @@
+użyte inne biblioteki
+GLM
+Boost Property Tree
+
+
+
+bilbioteki do zlinkowania
+GL
+X11
+GLEW

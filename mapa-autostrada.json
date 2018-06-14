@@ -1,0 +1,57 @@
+{
+	"nodes": [{
+		"id": 0,
+		"lat": -200.0,
+		"lon": 4.0,
+		"intersection": true,
+		"connections": [],
+		"roads": []
+	}, {
+		"id": 1,
+		"lat": 200.0,
+		"lon": 4.0,
+		"intersection": true,
+		"connections": [],
+		"roads": [
+			0
+		]
+	}],
+
+	"ways": [{
+		"id": 0,
+		"left": 4,
+		"right": 4,
+		"length": 100,
+		"beg": 0,
+		"end": 1,
+		"forbid": []
+	}],
+
+	"lights": [],
+
+	"spawner": [{
+		"lane": "0r0",
+		"prob": 6.536
+	}, {
+		"lane": "0r1",
+		"prob": 6.536
+	}, {
+		"lane": "0r2",
+		"prob": 6.536
+	}, {
+		"lane": "0r3",
+		"prob": 6.536
+	}, {
+		"lane": "0l0",
+		"prob": 6.536
+	}, {
+		"lane": "0l1",
+		"prob": 6.536
+	}, {
+		"lane": "0l2",
+		"prob": 6.536
+	}, {
+		"lane": "0l3",
+		"prob": 6.536
+	}]
+}
