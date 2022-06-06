@@ -9,6 +9,7 @@
 #define SRC_SIMMAP_HPP_
 
 #include <map>
+#include <string>
 #include <vector>
 
 class SimMap {
