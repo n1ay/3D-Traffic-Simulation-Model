@@ -1,11 +1,28 @@
 # 3D Traffic Simulation Model #
-Based on a cellurar automaton model 3D traffic simulation made with C++14.  
+Based on a cellular automaton model 3D traffic simulation made with C++14.  
 3D engine made from scratch with OpenGL.
 
-Build it with `./build_all.sh`. To build it properly you need glm and glew libraries.  
-Installation: `sudo apt install libglew-dev libglm-dev`  
-Check `pkg-config --cflags glew` and add output of this command as a compiler flag.  
-Add linker flags: `-lGLEW -lX11 -lGLU -lGL`
+## Building ##
+App consists of 2 parts: simulation and visualization engine. The first one requires
+`Boost` to be installed (specifically `property_tree`). The latter (in `MISS_Dispnew` subdirectory)
+requires the same `Boost` library and additionally `(Open)GL`, `GLEW`, `glm` and `X11 (xlib)` libraries.
+
+The app was tested with following library and tools versions:
+* OS Ubuntu 20.04 and 22.04
+* GCC 9 & 11,
+* CMake 3.16 & 3.22
+* Boost 1.71 & 1.74
+* GLEW 2.1 & 2.2
+* GLM 9.9.8
+
+For convenience there's a docker builder container available (`docker-builder` directory). Assuming
+correctly configured docker, the `build.sh` script should download `Ubuntu 20.04` image and build the
+application inside. The `build.sh` script expects 2 arguments - source directory and build directory.
+Example usage (from inside `docker-builder` subdirectory) that will create `out` directory in current
+directory:
+```
+./build.sh .. out
+```
 
 ## Usage ##
 Run `Debug/Sim`

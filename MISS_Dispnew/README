@@ -1,10 +1,13 @@
-użyte inne biblioteki
-GLM
-Boost Property Tree
+For building instructions see README in project's root directory.
 
+Keybindings:
+* movement - WASD
+* up/down - Space/L Shift
+* grab/release mouse - G/H
+* reset time - R
+* rewind small/large - T/[
+* fast-forward - ]
+* quit - Q
 
-
-bilbioteki do zlinkowania
-GL
-X11
-GLEW
+Known bugs:
+* Camera movement with mouse does not work well when using desktop scaling.
