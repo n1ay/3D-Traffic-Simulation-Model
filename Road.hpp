@@ -8,6 +8,7 @@
 #ifndef ROAD_HPP_
 #define ROAD_HPP_
 
+#include <ostream>
 #include <vector>
 #include <map>
 #include <set>
